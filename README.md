@@ -8,6 +8,8 @@ UserHub is a robust RESTful API built with Django and Django REST Framework. It 
 - **User Profiles**: Extended user model with profile information like full name, date of birth, etc.
 - **Task Management**: Full CRUD (Create, Read, Update, Delete) functionality for user-specific tasks.
 - **File Attachments**: Users can attach files to their tasks.
+- **Pagination**: Task listings are paginated for efficient data retrieval.
+- **Search & Ordering**: Tasks can be searched by title/description and ordered via API parameters.
 - **Advanced Filtering**: Search, filter, and order tasks through the API.
 - **Custom API Actions**:
   - `duplicate`: Create a copy of an existing task.

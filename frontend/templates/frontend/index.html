@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UserHub - Task Manager</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'frontend/css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>UserHub Task Manager</h1>
+        <nav id="main-nav" style="display: none;">
+            <!-- Nav links will be populated by JS -->
+        </nav>
+        <div id="auth-links">
+            <!-- Auth links will be populated by JS -->
+        </div>
+    </header>
+
+    <main>
+        <!-- Login/Register Forms -->
+        <div id="auth-container">
+            <form id="loginForm" class="auth-form">
+                <h2>Login</h2>
+                <input type="email" id="loginEmail" placeholder="Email" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <button type="submit">Login</button>
+                <p>Don't have an account? <a href="#" id="showRegister">Register here</a></p>
+            </form>
+
+            <form id="registerForm" class="auth-form" style="display:none;">
+                <h2>Register</h2>
+                <div id="register-error" class="form-error" style="display:none;"></div>
+                <input type="text" id="registerFullName" placeholder="Full Name" required>
+                <input type="email" id="registerEmail" placeholder="Email" required>
+                <input type="password" id="registerPassword" placeholder="Password" required>
+                <input type="password" id="registerPasswordConfirm" placeholder="Confirm Password" required>
+                <button type="submit">Register</button>
+                <p>Already have an account? <a href="#" id="showLogin">Login here</a></p>
+            </form>
+        </div>
+
+        <!-- Profile Management Section (hidden by default) -->
+        <div id="profile-manager-container" style="display:none;">
+            <h2>My Profile</h2>
+            <form id="profileForm">
+                <div id="profile-error" class="form-error" style="display:none;"></div>
+                <label for="profileEmail">Email</label>
+                <input type="email" id="profileEmail" placeholder="Email" required>
+                <label for="profileFullName">Full Name</label>
+                <input type="text" id="profileFullName" placeholder="Full Name">
+                <label for="profileDob">Date of Birth</label>
+                <input type="date" id="profileDob">
+                <label for="profileAddress">Address</label>
+                <textarea id="profileAddress" placeholder="Your Address"></textarea>
+                <label for="profileGender">Gender</label>
+                <select id="profileGender">
+                    <option value="" disabled selected>Select your gender</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                    <option value="O">Other</option>
+                    <option value="N">Prefer not to say</option>
+                </select>
+                <label for="profileMobile">Mobile Number</label>
+                <input type="tel" id="profileMobile" placeholder="Mobile Number">
+                <button type="submit">Update Profile</button>
+            </form>
+
+            <hr style="margin: 2rem 0;">
+
+            <button id="togglePasswordResetBtn" class="btn-toggle">Change Password</button>
+
+            <div id="passwordResetContainer" style="display:none; margin-top: 1.5rem;">
+                <h3>Reset Password</h3>
+                <form id="passwordResetForm">
+                    <div id="password-reset-error" class="form-error" style="display:none;"></div>
+                    <label for="oldPassword">Old Password</label>
+                    <input type="password" id="oldPassword" required>
+                    <label for="newPassword">New Password</label>
+                    <input type="password" id="newPassword" required>
+                    <label for="newPasswordConfirm">Confirm New Password</label>
+                    <input type="password" id="newPasswordConfirm" required>
+                    <button type="submit">Reset Password</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Task Management Section (hidden by default) -->
+        <div id="task-manager-container" style="display:none;">
+            <h2>My Tasks</h2>
+            <form id="taskForm">
+                <h3>Create New Task</h3>
+                <input type="text" id="taskTitle" placeholder="Task Title" required>
+                <textarea id="taskDescription" placeholder="Task Description"></textarea>
+                <input type="file" id="taskAttachment">
+                <button type="submit">Add Task</button>
+            </form>
+            <hr>
+            <div id="task-controls">
+                <form id="searchForm">
+                    <input type="search" id="searchInput" placeholder="Search tasks by title or description...">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+            <div class="table-responsive">
+                <table class="tasks-table" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Created</th>
+                            <th>Attachment</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tasks-table-body">
+                        <!-- Tasks will be loaded here by JS -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="no-tasks-message" style="display: none; text-align: center; padding: 2rem; background: #fff; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"></div>
+            <div id="bulk-actions" style="display: none;">
+                <button id="deleteAllTasksBtn" class="btn-delete">Delete All Tasks</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Edit Task Modal -->
+    <div id="editTaskModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Edit Task</h2>
+            <form id="editTaskForm">
+                <input type="hidden" id="editTaskId">
+                <div class="form-group">
+                    <label for="editTaskTitle">Title</label>
+                    <input type="text" id="editTaskTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="editTaskDescription">Description</label>
+                    <textarea id="editTaskDescription"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="editTaskAttachment">New Attachment</label>
+                    <input type="file" id="editTaskAttachment">
+                    <small id="currentAttachment"></small>
+                </div>
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Define the base URL for the API. This is simpler and more robust.
+        const API_BASE_URL = "/api";
+    </script>
+    <script src="{% static 'frontend/js/tasks.js' %}"></script>
+    <script src="{% static 'frontend/js/profile.js' %}"></script>
+    <script src="{% static 'frontend/js/app.js' %}"></script>
+</body>
+</html>

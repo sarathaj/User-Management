@@ -1,0 +1,7 @@
+Django
+djangorestframework
+django-filter
+python-dotenv
+black
+isort
+flake8

@@ -1,0 +1,352 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+header a {
+    color: #fff;
+    text-decoration: none;
+}
+
+nav#main-nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1rem;
+}
+
+nav#main-nav a.active {
+    font-weight: bold;
+    border-bottom: 2px solid #5cb85c;
+}
+
+main {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.auth-form, #taskForm, #profile-manager-container {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.auth-form h2, #taskForm h3, #profile-manager-container h2, #profile-manager-container h3 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.form-error {
+    color: #d9534f;
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+#profileForm label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+input[type="date"],
+input[type="tel"],
+input[type="search"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: #5cb85c;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+button:hover {
+    background: #4cae4c;
+}
+
+/* Task Controls (Search Bar) */
+#task-controls {
+    margin-bottom: 1rem;
+}
+
+#searchForm {
+    display: flex;
+    gap: 10px;
+}
+
+#searchForm button {
+    width: auto;
+    flex-shrink: 0; /* Prevent button from shrinking */
+}
+
+/* Class for toggle buttons that are not full-width */
+.btn-toggle {
+    width: auto;
+    padding: 10px 20px;
+    background: #6c757d; /* A secondary color */
+}
+
+.btn-toggle:hover {
+    background: #5a6268;
+}
+
+.task-card {
+    background: #fff;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.task-card h3 {
+    margin-top: 0;
+}
+
+.task-actions {
+    margin-top: 1rem;
+    display: flex;
+    gap: 10px;
+}
+
+#bulk-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#bulk-actions .btn-delete {
+    width: auto;
+}
+
+.btn-edit, .btn-delete {
+    width: auto;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+}
+
+.btn-edit {
+    background: #f0ad4e;
+}
+.btn-edit:hover {
+    background: #ec971f;
+}
+
+.btn-delete {
+    background: #d9534f;
+}
+.btn-delete:hover {
+    background: #c9302c;
+}
+
+/* Table Styles */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.tasks-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    overflow: hidden; /* Ensures border-radius is respected on table corners */
+}
+
+.tasks-table th,
+.tasks-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    vertical-align: middle;
+}
+
+.tasks-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.tasks-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.tasks-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.btn-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive table styles */
+@media screen and (max-width: 768px) {
+    .tasks-table thead {
+        display: none;
+    }
+
+    .tasks-table tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .tasks-table td {
+        display: block;
+        text-align: right;
+        border-bottom: 1px dotted #ccc;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .tasks-table td:last-child {
+        border-bottom: 0;
+    }
+
+    .tasks-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        width: calc(50% - 30px);
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+    }
+}
+
+/* Toast Notification Styles */
+#toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050;
+    width: 300px;
+}
+
+.toast {
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    opacity: 0;
+    transition: opacity 0.5s, transform 0.5s;
+    transform: translateX(100%);
+}
+
+.toast.success {
+    background-color: #28a745; /* Success green */
+}
+
+.toast.error {
+    background-color: #dc3545; /* Error red */
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 2rem;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.modal-content h2 {
+    text-align: center;
+    margin-top: 0;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#editTaskForm .form-group {
+    margin-bottom: 1rem;
+}
+
+#currentAttachment {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #555;
+}
