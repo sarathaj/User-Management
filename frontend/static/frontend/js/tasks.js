@@ -1,5 +1,4 @@
 // Task management functions
-// Note: The `logout()` and `API_BASE_URL` are defined in app.js
 
 function loadTasks(searchQuery = '') {
     let url = `${API_BASE_URL}/tasks/`;
