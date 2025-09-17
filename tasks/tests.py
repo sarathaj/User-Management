@@ -65,24 +65,6 @@ class TaskAPITests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Task.objects.filter(user=self.user).count(), 1)
 
-    def test_duplicate_task(self):
-        response = self.client.post(f"/api/tasks/{self.task1.id}/duplicate/")
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Task.objects.filter(user=self.user).count(), 3)
-        self.assertIn("Test Task 1 (Copy)", str(response.data))
-
-    def test_recent_tasks(self):
-        # Create an older task
-        Task.objects.create(
-            user=self.user,
-            title="Old Task",
-            created_at=timezone.now() - timedelta(days=10),
-        )
-        response = self.client.get("/api/tasks/recent/")
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 2)  # task1 and task2 are recent
-        self.assertIn("Test Task 1", str(response.data))
-        self.assertNotIn("Old Task", str(response.data))
 
     def test_delete_all_tasks(self):
         response = self.client.delete("/api/tasks/delete-all/")

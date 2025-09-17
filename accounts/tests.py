@@ -4,7 +4,6 @@ from rest_framework import status
 from rest_framework.test import APIClient
 
 
-
 class AccountTests(TestCase):
     def setUp(self):
         self.client = APIClient()
